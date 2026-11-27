@@ -460,7 +460,7 @@
               <button class="btn-chip v-file">ファイル</button>
               <button class="btn-chip off v-del" disabled>削除</button>
             </div>
-            <input id="fileInput" type="file" accept="audio/*" class="hidden" />
+            <input id="fileInput" type="file" accept="audio/*,.m4a,.mp3,.wav,.aac,.ogg,.opus,.webm,.mp4,.3gp,.flac" class="hidden" />
           </div>
 
           <div class="card set-card">
@@ -656,7 +656,7 @@
 
       function flashStatus(slot, text) {
         rows[slot].status.textContent = text;
-        setTimeout(() => renderVoice(slot), 3000);
+        setTimeout(() => renderVoice(slot), 7000);
       }
 
       async function decodeVoice(dataUrl) {
@@ -670,7 +670,7 @@
       }
 
       async function saveVoiceBlob(slot, blob) {
-        if (blob.size > MAX_BYTES) { flashStatus(slot, 'ファイルが大きすぎます'); return; }
+        if (blob.size > MAX_BYTES) { flashStatus(slot, 'ファイルが大きすぎます（' + (blob.size / 1000000).toFixed(1) + 'MB・上限1.5MB）'); return; }
         const dataUrl = await new Promise((ok, ng) => {
           const r = new FileReader();
           r.onload = () => ok(r.result);
